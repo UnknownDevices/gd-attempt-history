@@ -1,0 +1,14 @@
+namespace gd_atts_history.fbs;
+ 
+table Attempt {
+  start_time:ulong;
+  start_perc:float;
+  end_per:float;
+  flags:ubyte;
+}
+
+table AttemptHistory {
+  atts:[Attempt];
+}
+
+root_type AttemptHistory;

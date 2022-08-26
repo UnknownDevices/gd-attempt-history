@@ -1,0 +1,12 @@
+[submodule "vendor/minhook"]
+	path = vendor/minhook
+	url = https://github.com/TsudaKageyu/minhook.git
+[submodule "vendor/cocos-headers"]
+	path = vendor/cocos-headers
+	url = https://github.com/HJfod/cocos-headers
+[submodule "vendor/gd.h"]
+	path = vendor/gd.h
+	url = https://github.com/poweredbypie/gd.h
+[submodule "vendor/flatbuffers"]
+	path = vendor/flatbuffers
+	url = https://github.com/google/flatbuffers
