@@ -11,6 +11,7 @@
 #undef WIN32_LEAN_AND_MEAN
 #include <fstream>
 #include <thread>
+#include <cmath>
 #include <time.h>
 #include <format>
 #include <locale>

@@ -21,7 +21,6 @@ set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vendor/vcpkg/scripts/build
 project(gd-attempt-history)
 
 find_package(spdlog CONFIG REQUIRED)
-find_package(minhook CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 find_package(flatbuffers CONFIG REQUIRED)
 
@@ -33,7 +32,11 @@ list(APPEND GDAT_C_FILES
   src/dllmain.cpp
 )
 
-add_library(${PROJECT_NAME} SHARED ${GDAT_C_FILES})
+list(APPEND GDAT_H_FILES
+  #*.hpp
+)
+
+add_library(${PROJECT_NAME} SHARED ${GDAT_C_FILES} ${GDAT_H_FILES})
 
 # this is so stupid
 set(CMAKE_SIZEOF_VOID_P 4)
@@ -52,14 +55,19 @@ target_precompile_headers(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE
   vendor/gd.h/include
+  vendor/minhook/include
   vendor/gd.h/
   src
 )
 
 add_subdirectory(vendor/cocos-headers)
+add_subdirectory(vendor/minhook EXCLUDE_FROM_ALL)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum::magic_enum spdlog::spdlog minhook::minhook
-  cocos2d flatbuffers::flatbuffers)
+# there has to be a better way to link statically
+# ${CMAKE_BINARY_DIR}/vcpkg_installed/x86-windows/lib/spdlog.lib 
+# ${CMAKE_BINARY_DIR}/vcpkg_installed/x86-windows/lib/fmt.lib
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog_header_only  
+  minhook magic_enum::magic_enum cocos2d flatbuffers::flatbuffers)
 
 install(TARGETS "${PROJECT_NAME}"
   DESTINATION "C:/Program Files (x86)/Steam/steamapps/common/Geometry Dash/mods" 

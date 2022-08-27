@@ -4,6 +4,7 @@ out/
 vendor/cocos-headers/*
 vendor/gd.h/*
 vendor/vcpkg/*
+vendor/minhook/*
 
 # Prerequisites
 *.d

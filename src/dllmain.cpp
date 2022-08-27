@@ -5,6 +5,7 @@
 DWORD WINAPI thread_func(void*) {
   using namespace gd_hooking;
 
+  gd_att_history::init_logger();
   MH_Initialize();
 
   auto base = reinterpret_cast<size_t>(GetModuleHandle(0)); 
@@ -98,7 +99,7 @@ DWORD WINAPI thread_func(void*) {
   DWORD oldProtect;
   VirtualProtect(
     reinterpret_cast<void*>(static_cast<ptrdiff_t>(base + 0x1FD1C7)), 
-    sizeof(size_t), 
+    sizeof(size_t),
     PAGE_EXECUTE_READWRITE,
     &oldProtect);
 

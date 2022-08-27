@@ -18,9 +18,9 @@ namespace gd_att_history {
     Flags flags;
 
     void debug() const {
-      log(std::format(
+      logger->debug(
         "att. [start time [{:^7}], start perc. [{:^7.3f}], end perc. [{:^7.3f}], flags [{:^2}]]]", 
-        start_time, start_perc, end_perc, static_cast<u32>(flags)));
+        start_time, start_perc, end_perc, static_cast<u32>(flags));
     }
   };
 }

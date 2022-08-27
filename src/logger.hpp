@@ -1,22 +1,25 @@
 #pragma once
 
-static std::string parse_current_date_time(std::string s) {
-  time_t now = time(0);
-#pragma warning(suppress: 4996) // annoying
-  tm tstruct = *localtime(&now);
-  char buf[80];
+// HACK: where the hell is isnan being defined as _isnan?? is math.h being included somewhere??
+#undef isnan
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/rotating_file_sink.h>
 
-  if(s=="now")
-    strftime(buf, sizeof(buf), "%Y-%m-%d %X", &tstruct);
-  else if(s=="date")
-    strftime(buf, sizeof(buf), "%Y-%m-%d", &tstruct);
-  return std::string(buf);
-};
+namespace gd_att_history {
+  inline std::shared_ptr<spdlog::logger> logger;
 
-static void log(std::string msg) {
-  std::string filePath = "C:/Users/Nikky/logs/gd-attempt-history.txt";
-  std::string now = parse_current_date_time("now");
-  std::ofstream ofs(filePath.c_str(), std::ios_base::out | std::ios_base::app);
-  ofs << now << '\t' << msg << '\n';
-  ofs.close();
+  static int init_logger() {
+  try {
+    logger = spdlog::basic_logger_st("GDAH", "logs/gd-attempt-history.txt");
+    logger->set_pattern("%^[%T] %n: %v%$");
+    logger->set_level(spdlog::level::trace);
+    logger->trace("Initialized logger");
+  }
+  catch (const spdlog::spdlog_ex&) {
+    return 1;
+  }
+  
+  return 0;
+  }
 }

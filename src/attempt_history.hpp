@@ -48,7 +48,7 @@ namespace gd_att_history {
         f.close();
       }
       else {
-        log(std::format("Failed to open save file to write"));
+        logger->error("Failed to open save file to write");
         return;
       }
 
@@ -72,7 +72,7 @@ namespace gd_att_history {
         f.close();
       }
       else {
-        log(std::format("Failed to open save file to read"));
+        logger->error("Failed to open save file to read");
         return;
       }
 
@@ -94,7 +94,7 @@ namespace gd_att_history {
     }
 
     void debug() {
-      log(std::format("att. history [level id [{}], total atts. [{}]]", level_id, size()));
+      logger->debug("att. history [level id [{}], total atts. [{}]]", level_id, size());
     }
   };
 }
