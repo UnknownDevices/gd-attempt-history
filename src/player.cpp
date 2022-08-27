@@ -21,12 +21,7 @@ namespace gd_att_history {
     return 100.0f * x() / level_lenght;
   }
 
-  void Player::player_destroyed(bool) { // unhooked
-    // assumes is_an_att_recording to be true
-    Level::att_history.back().end_perc = calculate_perc(
-      game_manager().level().level_lenght());
-    Level::att_history.back().debug();
-    Level::is_an_att_recording = false;
+  void Player::post_player_destroyed(bool) { // unhooked
   }
 
   void Player::post_update(float frame_delay) { // unhooked

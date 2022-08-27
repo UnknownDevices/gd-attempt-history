@@ -1,9 +1,9 @@
 #pragma once
 
+#include <core.hpp>
+#include <gd_hooking/tramps.hpp>
 #include <level.hpp>
 #include <player.hpp>
-#include <gd_hooking/tramps.hpp>
-#include <core.hpp>
 
 namespace gd_hooking {
   static void __fastcall PlayLayer_updateAttempts_detour(void* self, void*) {
@@ -84,7 +84,7 @@ namespace gd_hooking {
 
   static void __fastcall PlayerObject_playerDestroyed_detour(void* self, void*, bool is_destroyed) {
     PlayerObject_playerDestroyed_tramp(self, is_destroyed);
-    reinterpret_cast<gd_att_history::Player*>(self)->player_destroyed(is_destroyed);
+    reinterpret_cast<gd_att_history::Player*>(self)->post_player_destroyed(is_destroyed);
   } 
   
   static int __fastcall PlayerObject_update_detour(void* self, void*, float x) {

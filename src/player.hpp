@@ -12,7 +12,7 @@ namespace gd_att_history {
     bool is_dead();
     bool has_won();
     float calculate_perc(float level_lenght);
-    void player_destroyed(bool is_destroyed);
+    void post_player_destroyed(bool is_destroyed);
     void post_update(float x);
   };
 }

@@ -6,8 +6,6 @@
 #include <gd.h>
 #include <logger.hpp>
 
-// pretty everything in cocos2d starts with CC, so there is a low chance of collisions
-// it also makes using cocos a lot nicer imo
 using namespace cocos2d;
 
 typedef int8_t   i8;

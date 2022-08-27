@@ -1,6 +1,6 @@
 /* 
   this file is for CMake's precompiled headers use and is not intended to be explicitly included by 
-  other files in this project.
+  files in this project.
 */
 
 #pragma once

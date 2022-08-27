@@ -24,7 +24,6 @@ find_package(spdlog CONFIG REQUIRED)
 find_package(minhook CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 find_package(flatbuffers CONFIG REQUIRED)
-# get flatbuffers as a submodule since its vcpkg package hasn't updated past 2.0.0
 
 list(APPEND GDAT_C_FILES
   #*.cpp

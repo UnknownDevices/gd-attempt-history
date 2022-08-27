@@ -2,9 +2,7 @@ build/
 docs/
 out/
 vendor/cocos-headers/*
-vendor/flatbuffers/*
 vendor/gd.h/*
-vendor/minhook/*
 vendor/vcpkg/*
 
 # Prerequisites
@@ -55,11 +53,6 @@ _deps
 .editorconfig
 .vs/
 .vscode/
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
 
 # Local History for Visual Studio Code
 .history/
