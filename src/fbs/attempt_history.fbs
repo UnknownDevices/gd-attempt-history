@@ -1,4 +1,4 @@
-namespace gd_atts_history.fbs;
+namespace gd_att_history.fbs;
  
 table Attempt {
   start_time:ulong;

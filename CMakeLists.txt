@@ -15,7 +15,16 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_BINARY_DIR}/bin/rel_wi
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_BINARY_DIR}/bin/rel_with_deb_info)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_BINARY_DIR}/bin/rel_with_deb_info) 
 
+set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vendor/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  CACHE STRING "Vcpkg toolchain file")
+
 project(gd-attempt-history)
+
+find_package(spdlog CONFIG REQUIRED)
+find_package(minhook CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
+find_package(flatbuffers CONFIG REQUIRED)
+# get flatbuffers as a submodule since its vcpkg package hasn't updated past 2.0.0
 
 list(APPEND GDAT_C_FILES
   #*.cpp
@@ -43,21 +52,15 @@ target_precompile_headers(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-  vendor/minhook/include
   vendor/gd.h/include
   vendor/gd.h/
-  vendor/flatbuffers/include
   src
 )
 
-# EXCLUDE_FROM_ALL flag used so target is excluded from installation
-add_subdirectory(vendor/minhook EXCLUDE_FROM_ALL)
 add_subdirectory(vendor/cocos-headers)
-add_subdirectory(vendor/flatbuffers
-                 ${CMAKE_CURRENT_BINARY_DIR}/flatbuffers-build
-                 EXCLUDE_FROM_ALL)
- 
-target_link_libraries(${PROJECT_NAME} PRIVATE minhook cocos2d flatbuffers)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE magic_enum::magic_enum spdlog::spdlog minhook::minhook
+  cocos2d flatbuffers::flatbuffers)
 
 install(TARGETS "${PROJECT_NAME}"
   DESTINATION "C:/Program Files (x86)/Steam/steamapps/common/Geometry Dash/mods" 

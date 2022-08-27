@@ -1,7 +1,11 @@
 build/
 docs/
 out/
-vendor/*
+vendor/cocos-headers/*
+vendor/flatbuffers/*
+vendor/gd.h/*
+vendor/minhook/*
+vendor/vcpkg/*
 
 # Prerequisites
 *.d

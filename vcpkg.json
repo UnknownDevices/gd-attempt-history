@@ -1,0 +1,12 @@
+{
+  "name": "gd-attempt-history",
+  "version": "0.1.0",
+  "description": "A WIP Geometry Dash mod inspired by ydis.",
+  "license": "MIT",
+  "dependencies": [
+    "spdlog",
+    "minhook",
+    "magic-enum",
+    "flatbuffers"
+  ]
+}

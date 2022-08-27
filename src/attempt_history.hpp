@@ -1,7 +1,7 @@
 #pragma once
 
 #include <attempt.hpp>
-#include <fbs/attempt_history.h>
+#include <fbs/attempt_history.fbs.h>
 
 namespace gd_att_history {
   struct AttemptHistory final : public std::vector<Attempt> {
