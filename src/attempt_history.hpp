@@ -48,7 +48,6 @@ namespace gd_att_history {
         f.close();
       }
       else {
-        logger->error("Failed to open save file to write");
         return;
       }
 
@@ -72,7 +71,6 @@ namespace gd_att_history {
         f.close();
       }
       else {
-        logger->error("Failed to open save file to read");
         return;
       }
 

@@ -5,7 +5,6 @@
 DWORD WINAPI thread_func(void*) {
   using namespace gd_hooking;
 
-  gd_att_history::init_logger();
   MH_Initialize();
 
   auto base = reinterpret_cast<size_t>(GetModuleHandle(0)); 
@@ -96,12 +95,12 @@ DWORD WINAPI thread_func(void*) {
   // );
   MH_EnableHook(MH_ALL_HOOKS);
 
-  DWORD oldProtect;
+  DWORD old_protect;
   VirtualProtect(
     reinterpret_cast<void*>(static_cast<ptrdiff_t>(base + 0x1FD1C7)), 
     sizeof(size_t),
     PAGE_EXECUTE_READWRITE,
-    &oldProtect);
+    &old_protect);
 
   auto detour_rel_addr = static_cast<ptrdiff_t>(reinterpret_cast<size_t>(
     PlayLayer_init_resetLevel_detour) - (base + 0x1FD1C7 + sizeof(size_t)));
@@ -113,14 +112,18 @@ DWORD WINAPI thread_func(void*) {
   VirtualProtect(    
     reinterpret_cast<void*>(static_cast<ptrdiff_t>(base + 0x1FD1C7)), 
     sizeof(size_t), 
-    oldProtect, 
-    &oldProtect);
+    old_protect, 
+    &old_protect);
 
   return 0;
 }
 
 BOOL APIENTRY DllMain(HMODULE handle, DWORD reason, LPVOID reserved) {
   if (reason == DLL_PROCESS_ATTACH) {
+    if(gd_att_history::init_logger()) {
+      return FALSE;
+    }
+
     auto h = CreateThread(0, 0, thread_func, handle, 0, 0);
     if (h) {
       CloseHandle(h);

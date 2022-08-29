@@ -7,3 +7,6 @@
 [submodule "vendor/vcpkg"]
 	path = vendor/vcpkg
 	url = https://github.com/microsoft/vcpkg
+[submodule "vendor/spdlog"]
+	path = vendor/spdlog
+	url = https://github.com/gabime/spdlog

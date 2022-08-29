@@ -16,11 +16,13 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_BINARY_DIR}/bin/rel_wi
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO ${CMAKE_BINARY_DIR}/bin/rel_with_deb_info) 
 
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/vendor/vcpkg/scripts/buildsystems/vcpkg.cmake"
-  CACHE STRING "Vcpkg toolchain file")
+  CACHE STRING "vcpkg toolchain file")
+
+set(SPDLOG_USE_STD_FORMAT ON)
+set(SPDLOG_DISABLE_DEFAULT_LOGGER ON)
 
 project(gd-attempt-history)
 
-find_package(spdlog CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 find_package(flatbuffers CONFIG REQUIRED)
 
@@ -56,18 +58,17 @@ target_precompile_headers(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PRIVATE
   vendor/gd.h/include
   vendor/minhook/include
-  vendor/gd.h/
+  vendor/spdlog/include/spdlog
+  vendor/gd.h
   src
 )
 
 add_subdirectory(vendor/cocos-headers)
+add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/minhook EXCLUDE_FROM_ALL)
 
-# there has to be a better way to link statically
-# ${CMAKE_BINARY_DIR}/vcpkg_installed/x86-windows/lib/spdlog.lib 
-# ${CMAKE_BINARY_DIR}/vcpkg_installed/x86-windows/lib/fmt.lib
-target_link_libraries(${PROJECT_NAME} PRIVATE spdlog::spdlog_header_only  
-  minhook magic_enum::magic_enum cocos2d flatbuffers::flatbuffers)
+target_link_libraries(${PROJECT_NAME} PRIVATE spdlog minhook magic_enum::magic_enum cocos2d     
+  flatbuffers::flatbuffers)
 
 install(TARGETS "${PROJECT_NAME}"
   DESTINATION "C:/Program Files (x86)/Steam/steamapps/common/Geometry Dash/mods" 

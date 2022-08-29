@@ -5,6 +5,7 @@ vendor/cocos-headers/*
 vendor/gd.h/*
 vendor/vcpkg/*
 vendor/minhook/*
+vendor/spdlog/*
 
 # Prerequisites
 *.d
